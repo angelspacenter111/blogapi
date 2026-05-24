@@ -18,7 +18,6 @@ const showall = async (req, res) => {
 
 const blogsubmitprocess = async (req, res) => {
 	try {
-		// express-validator errors
 		const errors = validationResult(req);
 
 		if (!errors.isEmpty()) {
@@ -39,12 +38,10 @@ const blogsubmitprocess = async (req, res) => {
 
 		const saveResponse = await blog.save();
 
-		if (saveResponse._id == null) {
-			res.redirect("/show-all");
-		}
+		return res.redirect("/show-all");
 
 	} catch (error) {
-		// Duplicate slug error
+
 		if (error.code === 11000) {
 			return res.status(409).json({
 				success: false,
@@ -53,7 +50,6 @@ const blogsubmitprocess = async (req, res) => {
 			});
 		}
 
-		// Mongoose validation error
 		if (error.name === "ValidationError") {
 			return res.status(400).json({
 				success: false,
@@ -61,7 +57,6 @@ const blogsubmitprocess = async (req, res) => {
 			});
 		}
 
-		// Generic server error
 		return res.status(500).json({
 			success: false,
 			message: "Internal server error"
