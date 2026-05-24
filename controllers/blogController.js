@@ -1,13 +1,19 @@
 import Blog from "../models/Blog.js";
 import { validationResult } from "express-validator";
+import { BASE_URL } from '../config/information.js'
 
 const showForm = (req, res) => {
 	res.render("blog-form");
 };
+const deleteblog = async (req, res) => {
+	const id = req.params.id;
+	await Blog.findByIdAndDelete(req.params.id);
+	res.redirect("/show-all");
+}
 
 const showall = async (req, res) => {
 	const blogs = await Blog.find();
-	res.render("bloglist", { blogs });
+	res.render("bloglist", { blogs, BASE_URL });
 };
 
 const blogsubmitprocess = async (req, res) => {
@@ -66,5 +72,6 @@ const blogsubmitprocess = async (req, res) => {
 export default {
 	showForm,
 	blogsubmitprocess,
-	showall
+	showall,
+	deleteblog
 };

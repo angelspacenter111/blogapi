@@ -12,6 +12,7 @@ const upload = multer({
 router.get("/", blogController.showForm);
 
 router.get("/show-all", blogController.showall);
+router.get("/delete/:id", blogController.deleteblog);
 
 router.post(
     "/submit-form",

@@ -7,7 +7,7 @@ import connectDB from "./config/db.js";
 import blogRoutes from "./routes/blogRoutes.js";
 
 const app = express();
-const PORT = process.env.PORT || 18012;
+const PORT = process.env.PORT || 65535;
 connectDB();
 // __dirname setup for ES Modules
 const __filename = fileURLToPath(import.meta.url);
