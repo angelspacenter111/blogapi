@@ -17,8 +17,8 @@ export const userValidation = [
         .withMessage("Short description is required")
         .isLength({ min: 5, max: 200 }).withMessage(
             "Short description must be between 5 and 200 characters"
-        )
+        ),
 
-
-
+    body("blogContent").trim().notEmpty()
+        .withMessage("Short description is required")
 ];

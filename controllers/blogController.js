@@ -6,10 +6,8 @@ const showForm = (req, res) => {
 };
 
 const showall = async (req, res) => {
-
 	const blogs = await Blog.find();
-	console.log(blogs)
-	res.render("bloglist");
+	res.render("bloglist", { blogs });
 };
 
 const blogsubmitprocess = async (req, res) => {
@@ -35,15 +33,11 @@ const blogsubmitprocess = async (req, res) => {
 
 		const saveResponse = await blog.save();
 
-		return res.status(201).json({
-			success: true,
-			id: saveResponse._id,
-			message: "Blog saved successfully"
-		});
+		if (saveResponse._id == null) {
+			res.redirect("/show-all");
+		}
 
 	} catch (error) {
-		console.log(error);
-
 		// Duplicate slug error
 		if (error.code === 11000) {
 			return res.status(409).json({
