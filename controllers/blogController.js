@@ -3,7 +3,7 @@ import { validationResult } from "express-validator";
 import { BASE_URL } from '../config/information.js'
 
 const showForm = (req, res) => {
-	res.render("blog-form");
+	res.render("blog-form", { BASE_URL });
 };
 const deleteblog = async (req, res) => {
 	const id = req.params.id;
